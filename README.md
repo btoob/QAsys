@@ -7,8 +7,7 @@
 [Github Oath Doc](https://docs.github.com/en/free-pro-team@latest/developers/apps/building-oauth-apps)
 ## tools
 [github](https://github.com/btoob/QAsys)
-[Visual-paradigm](https://www.visual-paradigm.com)
-<<<<<<< HEAD
+[Visual-paradigm](https://www.visual-paradigm.com）
 ## script
 ```sql
 create table USER
@@ -22,9 +21,5 @@ create table USER
 	constraint USER_PK
 		primary key (ID)
 );
-
-
 ```
-=======
-some update
->>>>>>> c2c40d6ca4c99ab56413ec6fd3dba9d5ecd3e05d
+

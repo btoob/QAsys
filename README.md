@@ -8,6 +8,7 @@
 ## tools
 [github](https://github.com/btoob/QAsys)
 [Visual-paradigm](https://www.visual-paradigm.com)
+<<<<<<< HEAD
 ## script
 ```sql
 create table USER
@@ -24,3 +25,6 @@ create table USER
 
 
 ```
+=======
+some update
+>>>>>>> c2c40d6ca4c99ab56413ec6fd3dba9d5ecd3e05d

@@ -4,6 +4,7 @@ import com.rascal.community.Mapper.QuestionMapper;
 import com.rascal.community.Mapper.UserMapper;
 import com.rascal.community.Model.Question;
 import com.rascal.community.Model.User;
+import com.rascal.community.dto.PaginationDTO;
 import com.rascal.community.dto.QuestionDTO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,14 @@ public class QuestionService {
     @Autowired
     UserMapper userMapper;
 
-    public List<QuestionDTO> getAllQuestion() {
-        List<Question> allQuestion = questionMapper.getAllQuestion();
+    public PaginationDTO getAllQuestion(Integer page, Integer size) {
+        Integer offset = size*(page-1);     //每页起始数据的索引
+
+        List<Question> allQuestion = questionMapper.getAllQuestion(offset, size);
         List<QuestionDTO> questionDTOS = new ArrayList<>();
+
+        PaginationDTO paginationDTO = new PaginationDTO();
+
         for (Question question : allQuestion) {
             User user = userMapper.getById(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
@@ -29,6 +35,22 @@ public class QuestionService {
             questionDTO.setUser(user);
             questionDTOS.add(questionDTO);
         }
-        return questionDTOS;
+        paginationDTO.setQuestions(questionDTOS);
+        Integer totalCount = questionMapper.count();
+        int totalPage;
+        if (totalCount % size == 0) {
+            totalPage = totalCount / size;
+        } else {
+            totalPage = totalCount / size + 1;
+        }
+
+        if (page < 1) {
+            page = 1;
+        }
+        if (page > totalPage) {
+            page = totalPage;
+        }
+        paginationDTO.setPagination(totalPage, page);
+        return paginationDTO;
     }
 }

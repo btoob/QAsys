@@ -3,6 +3,7 @@ package com.rascal.community.Mapper;
 import com.rascal.community.Model.Question;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -13,6 +14,9 @@ public interface QuestionMapper {
             "values (#{title}, #{description}, #{gmtCreate}, #{gmtModified}, #{creator}, #{tag})")
     void create(Question question);
 
-    @Select("select * from question")
-    List<Question> getAllQuestion();
+    @Select("select * from question limit #{offset}, #{size}")
+    List<Question> getAllQuestion(@Param("offset") Integer offset, @Param("size") Integer size);
+
+    @Select("select count(1) from question")
+    Integer count();
 }

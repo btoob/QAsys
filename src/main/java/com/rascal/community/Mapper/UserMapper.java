@@ -4,6 +4,7 @@ import com.rascal.community.Model.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 
 @Mapper
@@ -17,4 +18,15 @@ public interface UserMapper {
 
     @Select("select * from user where id = #{id}")
     User getById(Integer id);
+
+    @Select("select * from user where id=#{creator}")
+    User selectByPrimaryKey(Integer creator);
+
+    @Select("select * from user where accountId=#{accountId}")
+    User findByAccountId(String accountId);
+
+    @Update("update user set name=#{name}, token=#{token}, " +
+            "gmtModified=#{gmtModified}, avatar_url=#{avatarUrl} " +
+            "where accountId=#{accountId}")
+    void update(User user);
 }
